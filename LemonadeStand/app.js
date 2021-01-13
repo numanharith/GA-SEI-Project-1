@@ -1,15 +1,44 @@
 let cupSupplies = 0;
 let iceCubeSupplies = 0;
 let cash = 20;
+var minsInAday = 480; 
+var day = 1;
+var totalGameTime = minsInAday * day;
+var time = 1000;
 
 const displayCupSupplies = document.getElementById("numberofcups"); 
 const displayIceCubeSupplies = document.getElementById("numberoficecubes"); 
 const displayCash = document.getElementById("cash");
+const displayTemp = document.getElementById("temp");
+const displayTime = document.getElementById("time");
+const displayDay = document.getElementById("day");
+const buyButtons = document.getElementsByClassName("buy-btns");
+
+function nextDay() {
+    day++;
+    displayDay.innerHTML = day;
+}
+
+function disableBuyButtons() {
+    for (buyButton of buyButtons) {
+        buyButton.disabled = true;
+    }
+}
+
+function enableBuyButtons() {
+    for (buyButton of buyButtons) {
+        buyButton.disabled = false;
+    }
+}
+
+function randomizeTemp() {
+    return Math.floor(22 + Math.random() * 12);
+}
 
 function boughtCups(noOfCupsBought, cost) {
         cupSupplies += noOfCupsBought;
         cash -= cost;
-        displayCupSupplies.innerHTML = cupSupplies ;
+        displayCupSupplies.innerHTML = cupSupplies;
         displayCash.innerHTML = cash.toFixed(2);
 }
 
@@ -21,19 +50,19 @@ function boughtIceCubes(noOfIceCubesBought, cost) {
 }
 
 function buy25cups() {
-    if (cash > .96) {
+    if (cash > 1.2) {
         boughtCups(25, 1.2);
     }
 }
 
 function buy50cups() {
-    if (cash > 1.6) {
+    if (cash > 3.14) {
         boughtCups(50, 3.14)
     }
 }
 
 function buy100cups() {
-    if (cash > 3.23) {
+    if (cash > 5.23) {
         boughtCups(100, 5.23)
     }
 }
@@ -56,6 +85,100 @@ function buy500icecubes() {
     }
 }
 
+function customerPurchase() {
+    cupSupplies--;
+    displayCupSupplies.innerHTML = cupSupplies;
+    cash += parseFloat(price.value);
+    displayCash.innerHTML = cash.toFixed(2);
+}
+
+const price = document.getElementById("myRange");
+const output = document.getElementById("priceOutput");
+
+output.innerHTML = price.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+price.oninput = function() {
+    output.innerHTML = this.value;
+}
+
+var count = 1;
+function priceElasticity() {
+    console.log(count);
+    if (count % 60 === 0) {
+        time += 100;
+        displayTime.innerHTML = time;
+    }
+    if (count === 1 && cupSupplies <= 0) {
+        alert('You have no supplies!');
+        clearInterval(window.priceInterval);
+    } else if (count < minsInAday && cupSupplies > 0) {
+        disableBuyButtons();
+        displayDay.innerHTML = day;
+        displayTemp.innerHTML = temp;
+        displayTime.innerHTML = time;
+        count++;
+        let chance = Math.random();
+        if (price.value <= .1) {
+            if (chance <= 0.5) {
+                customerPurchase();
+            }
+        } else if (price.value > .1 && price.value <= .2) {
+            if (chance <= 0.45) {
+                customerPurchase();
+            }
+        } else if (price.value > .2 && price.value <= .3) {
+            if (chance <= 0.4) {
+                customerPurchase();
+            }
+        } else if (price.value > .3 && price.value <= .4) {
+            if (chance <= 0.35) {
+                customerPurchase();
+            }
+        } else if (price.value > .4 && price.value <= .5) {
+            if (chance <= 0.3) {
+                customerPurchase();
+            }
+        } else if (price.value > .5 && price.value <= .6) {
+            if (chance <= 0.25) {
+                customerPurchase();
+            }
+        } else if (price.value > .6 && price.value <= .7) {
+            if (chance <= 0.2) {
+                customerPurchase();
+            }
+        } else if (price.value > .7 && price.value <= .8) {
+            if (chance <= 0.15) {
+                customerPurchase();
+            }
+        } else if (price.value > .8 && price.value <= .9) {
+            if (chance <= 0.1) {
+                customerPurchase();
+            }
+        } else if (price.value > .9 && price.value <= 1) {
+            if (chance <= 0.05) {
+                customerPurchase();
+            }
+        }  
+    } else {
+        nextDay();
+        time = 1000;
+        count = 1;
+        enableBuyButtons();
+        clearInterval(window.priceInterval);
+    }
+}
+
+function setTemp() {
+    console.log('temperature changed')
+    temp = randomizeTemp();
+}
+
+function simulation() {
+    window.priceInterval = setInterval(priceElasticity, 100); // 100ms in real life in 1min in-game
+    setTemp();
+    setInterval(setTemp, 24000);
+}
 
 
 $(() => {

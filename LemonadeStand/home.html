@@ -9,33 +9,44 @@
     <title>Lemonade Stand</title>
 </head>
 <body>
-    <h1>Inventory/Purchasing</h1>
+    <h1>Lemonade Stand</h1>
     <h2>Cash: $<span id="cash">20</span></h2>
     <div class="container">
         <p>Number of cups of lemonade: <span id="numberofcups">0</span></p>
         <br>
         <p>25 cups for $1.20</p>
-        <button onclick="buy25cups()">Buy</button>
+        <button onclick="buy25cups()" class="buy-btns">Buy</button>
         <br>
         <p>50 cups for $3.14</p>
-        <button onclick="buy50cups()">Buy</button>
+        <button onclick="buy50cups()" class="buy-btns">Buy</button>
         <br>
         <p>100 cups for $5.23</p>
-        <button onclick="buy100cups()">Buy</button>
+        <button onclick="buy100cups()" class="buy-btns">Buy</button>
         <br><br>
         <p>Number of ice cubes: <span id="numberoficecubes">0</span></p>
         <br>
         <p>100 ice cubes for $0.98</p>
-        <button onclick="buy100icecubes()">Buy</button>
+        <button onclick="buy100icecubes()" class="buy-btns">Buy</button>
         <br>
         <p>250 ice cubes for $2.15</p>
-        <button onclick="buy250icecubes()">Buy</button>
+        <button onclick="buy250icecubes()" class="buy-btns">Buy</button>
         <br>
         <p>500 ice cubes for $3.70</p>
-        <button onclick="buy500icecubes()">Buy</button>
+        <button onclick="buy500icecubes()" class="buy-btns">Buy</button>
         <br><br>
-        <button>Quit</button>
-        <button>Proceed</button>
+        <p>Set price per cup:</p>
+        <div class="slidecontainer">
+            <input type="range" min="0.01" step="0.01" max="1" value="0.25" class="slider" id="myRange">
+            <p>$<span id="priceOutput"></span></p>
+        </div>
+        <p>Time: <span id="time"></span> hours</p>
+        <br>
+        <p>Weather: <span id="temp"></span><span>&#8451</span></p>
+        <br>
+        <p>Day: <span id="day"></span> of 7</p>
+        <br>
+        <button>Reset</button>
+        <button onclick="simulation()">Simulate</button>
         <button>Guide</button>
     </div>
 </body>
