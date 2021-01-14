@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>Lemonade Stand</h1>
-    <h2>Cash: $<span id="cash">20</span></h2>
+    <h2>Cash: $<span id="cash">10</span></h2>
     <div class="container">
         <p>Number of cups of lemonade: <span id="numberofcups">0</span></p>
         <br>
@@ -39,14 +39,17 @@
             <input type="range" min="0.01" step="0.01" max="1" value="0.25" class="slider" id="myRange">
             <p>$<span id="priceOutput"></span></p>
         </div>
+        <form>
+            <label for="useCubes">Add 4 ice cubes:</label>
+            <input type="checkbox" id="icecubebox">
+        </form>
         <p>Time: <span id="time"></span> hours</p>
         <br>
         <p>Weather: <span id="temp"></span><span>&#8451</span></p>
         <br>
         <p>Day: <span id="day"></span> of 7</p>
-        <br>
-        <button>Reset</button>
-        <button onclick="simulation()">Simulate</button>
+        <br><br>
+        <button onclick="simulation()" id="simulate-btn">Simulate</button>
         <button>Guide</button>
     </div>
 </body>
