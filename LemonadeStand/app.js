@@ -6,7 +6,14 @@ var day = 1;
 var totalGameTime = minsInAday * day;
 var time = 1000;
 let weatherElasticity;
-
+let totalCupsBought = 0;
+let totalIceCubesBought = 0;
+let cupsExpenses = 0;
+let iceCubesExpenses = 0;
+let totalExpenses = 0;
+let totalCupsSold = 0;
+let totalSales = 0;
+var profit;
 const displayCupSupplies = document.getElementById("numberofcups"); 
 const displayIceCubeSupplies = document.getElementById("numberoficecubes"); 
 const displayCash = document.getElementById("cash");
@@ -16,6 +23,19 @@ const displayDay = document.getElementById("day");
 const buyButtons = document.getElementsByClassName("buy-btns");
 const simulateButton = document.getElementById("simulate-btn");
 const useIceCubes = document.getElementById('icecubebox');
+const displayCupsBought = document.getElementById('totalcupsbought');
+const displayIceCubesBought = document.getElementById('totalicecubesbought');
+const displayCupsExpenses = document.getElementById('cupsexpenses');
+const displayIceCubesExpenses = document.getElementById('icecubesexpenses');
+const displayTotalExpenses = document.getElementById('totalexpenses');
+const displayTotalExpenses2 = document.getElementById('totalexpenses2');
+const displayTotalCupsSold = document.getElementById('totalcupssold')
+const displayTotalSales = document.getElementById('totalsales');
+const displayProfit = document.getElementById('profits');
+
+if (iceCubeSupplies < 4) {
+    useIceCubes.disabled = true;
+}
 
 function includeIceCubes() {
     if (useIceCubes.checked === true && iceCubeSupplies >= 4) {
@@ -61,6 +81,11 @@ function boughtCups(noOfCupsBought, cost) {
         cash -= cost;
         displayCupSupplies.innerHTML = cupSupplies;
         displayCash.innerHTML = cash.toFixed(2);
+        totalCupsBought += noOfCupsBought;
+        displayCupsBought.innerHTML = totalCupsBought;
+        cupsExpenses += cost;
+        displayCupsExpenses.innerHTML = cupsExpenses.toFixed(2);
+        updateTotalExpenses();
 }
 
 function boughtIceCubes(noOfIceCubesBought, cost) {
@@ -68,6 +93,17 @@ function boughtIceCubes(noOfIceCubesBought, cost) {
         cash -= cost;
         displayIceCubeSupplies.innerHTML = iceCubeSupplies;
         displayCash.innerHTML = cash.toFixed(2);
+        totalIceCubesBought += noOfIceCubesBought;
+        displayIceCubesBought.innerHTML = totalIceCubesBought;
+        iceCubesExpenses += cost;
+        displayIceCubesExpenses.innerHTML = iceCubesExpenses.toFixed(2);
+        updateTotalExpenses();
+}
+
+function updateTotalExpenses() {
+    totalExpenses = iceCubesExpenses + cupsExpenses;
+    displayTotalExpenses.innerHTML = totalExpenses.toFixed(2);
+    displayTotalExpenses2.innerHTML = totalExpenses.toFixed(2);
 }
 
 function buy25cups() {
@@ -92,29 +128,41 @@ function buy100icecubes() {
     if (cash > .98) {
         boughtIceCubes(100, .98);
     }
+    useIceCubes.disabled = false;
 }
 
 function buy250icecubes() {
     if (cash > 2.15) {
         boughtIceCubes(250, 2.15)
     }
+    useIceCubes.disabled = false;
 }
 
 function buy500icecubes() {
     if (cash > 3.7) {
         boughtIceCubes(500, 3.7)
     }
+    useIceCubes.disabled = false;
 }
 
 function customerPurchased() {
-    if(useIceCubes.checked === true) {
+    if(useIceCubes.checked === true && iceCubeSupplies >= 4) {
         iceCubeSupplies -= 4;
         displayIceCubeSupplies.innerHTML = iceCubeSupplies;
     }
     cupSupplies--;
     displayCupSupplies.innerHTML = cupSupplies;
+    if (cupSupplies <= 0) {
+        alert('You have run out of lemonade!');
+    }
     cash += parseFloat(price.value);
     displayCash.innerHTML = cash.toFixed(2);
+    totalSales += parseFloat(price.value);
+    displayTotalSales.innerHTML = totalSales.toFixed(2);
+    totalCupsSold++;
+    displayTotalCupsSold.innerHTML = totalCupsSold;
+    profit = totalSales - totalExpenses;
+    displayProfit.innerHTML = profit.toFixed(2);
 }
 
 const price = document.getElementById("myRange");
@@ -189,7 +237,6 @@ function weatherChance() {
 
 var count = 1;
 function priceElasticity() {
-    console.log(count);
     disableSimulation();
     disableBuyButtons();
     displayDay.innerHTML = day;
@@ -266,54 +313,50 @@ function simulation() {
     setInterval(setTemp, 24000);
 }
 
-
 $(() => {
-    // const buyCups = () => {
-    //     let numberOfCups = 0;
-    //     $('#buy25cups-btn').on('click', () => {
-    //         if (parseInt($('.cash').html()) > cup.costFor25) {
-    //             numberOfCups += 25;
-    //             localStorage.setItem("value", document.getElementById('buy25cups-btn').value);
-    //             document.getElementById('buy25cups-btn').value = numberOfCups;
-    //             // localStorage.setItem('data', $('.numberofcups').attr('data-noofcups', numberOfCups));
-    //             // $('.numberofcups').html(document.querySelector('.numberofcups').dataset.noofcups = numberOfCups);
-    //             $('.cash').html((parseFloat($('.cash').html()) - cup.costFor25).toFixed(2));
-    //         }
-    //     });
-    //     $('#buy50cups-btn').on('click', () => {
-    //         if (parseInt($('.cash').html()) > cup.costFor50) {
-    //             $('.numberofcups').html(parseInt($('.numberofcups').html()) + 50);
-    //             $('.cash').html((parseFloat($('.cash').html()) - cup.costFor50).toFixed(2));
-    //         }
-    //     });
-    //     $('#buy100cups-btn').on('click', () => {
-    //         if (parseInt($('.cash').html()) > cup.costFor100) {
-    //             $('.numberofcups').html(parseInt($('.numberofcups').html()) + 100);
-    //             $('.cash').html((parseFloat($('.cash').html()) - cup.costFor100).toFixed(2));
-    //         }
-    //     });
-    // }
+    // Grabbing Guide button
+    const $openBtn = $('#openModal');
+    
+    // Grabbing modal element
+    const $modal = $('#modal');
+    
+    // Grabbing close button
+    const $closeBtn = $('#close');
+    
+    const openModal = () => {
+        $modal.css('display', 'block');
+    }
+    $openBtn.on('click', openModal);
+    
+    const closeModal = () => {
+        $modal.css('display', 'none');
+    }
+    $closeBtn.on('click', closeModal);
+    
+    setTimeout(openModal, 1);
 
-    // const buyIceCubes = () => {
-    //     $('#buy100cubes-btn').on('click', () => {
-    //         if (parseInt($('.cash').html()) > iceCubes.costFor100) {
-    //             $('.numberoficecubes').html(parseInt($('.numberoficecubes').html()) + 100);
-    //             $('.cash').html((parseFloat($('.cash').html()) - iceCubes.costFor100).toFixed(2));
-    //         }
-    //     });
-    //     $('#buy250cubes-btn').on('click', () => {
-    //         if (parseInt($('.cash').html()) > iceCubes.costFor250) {
-    //             $('.numberoficecubes').html(parseInt($('.numberoficecubes').html()) + 250);
-    //             $('.cash').html((parseFloat($('.cash').html()) - iceCubes.costFor250).toFixed(2));
-    //         }
-    //     });
-    //     $('#buy500cubes-btn').on('click', () => {
-    //         if (parseInt($('.cash').html()) > iceCubes.costFor500) {
-    //             $('.numberoficecubes').html(parseInt($('.numberoficecubes').html()) + 500);
-    //             $('.cash').html((parseFloat($('.cash').html()) - iceCubes.costFor500).toFixed(2));
-    //         }
-    //     });
-    // }
+    // View book recommendations
+    const $openBooksBtn = $('#openBooks');
+    const $book = $('#book');
+    const $closeBooksBtn = $('#closeBooks');
+    const openBook = () => {
+        $book.css('display', 'block');
+    }
+    $openBooksBtn.on('click', openBook);
+    const closeBook = () => {
+        $book.css('display', 'none');
+    }
+    $closeBooksBtn.on('click', closeBook);
+});
 
-    // buyIceCubes();
+// News API
+$.ajax({
+    url:'https://www.googleapis.com/books/v1/volumes?q=lemonade+subject:lemonade&key=AIzaSyBJFvXiEFoq49wCcpJ2TxL64hQbLF_Ibhs',
+    success: function(json) {
+        var booksArr = "";
+        for (i = 0; i < json.items.length; i++) {
+                booksArr += "<li>Title: " + json.items[i].volumeInfo.title + ", Author: " + json.items[i].volumeInfo.authors[0] + "<br>";
+        }
+        document.getElementById("book-article").innerHTML = "<ol>" + booksArr + "</ol><br>";
+    }
 });

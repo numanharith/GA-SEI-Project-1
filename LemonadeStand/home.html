@@ -9,48 +9,192 @@
     <title>Lemonade Stand</title>
 </head>
 <body>
-    <h1>Lemonade Stand</h1>
-    <h2>Cash: $<span id="cash">10</span></h2>
-    <div class="container">
-        <p>Number of cups of lemonade: <span id="numberofcups">0</span></p>
-        <br>
-        <p>25 cups for $1.20</p>
-        <button onclick="buy25cups()" class="buy-btns">Buy</button>
-        <br>
-        <p>50 cups for $3.14</p>
-        <button onclick="buy50cups()" class="buy-btns">Buy</button>
-        <br>
-        <p>100 cups for $5.23</p>
-        <button onclick="buy100cups()" class="buy-btns">Buy</button>
-        <br><br>
-        <p>Number of ice cubes: <span id="numberoficecubes">0</span></p>
-        <br>
-        <p>100 ice cubes for $0.98</p>
-        <button onclick="buy100icecubes()" class="buy-btns">Buy</button>
-        <br>
-        <p>250 ice cubes for $2.15</p>
-        <button onclick="buy250icecubes()" class="buy-btns">Buy</button>
-        <br>
-        <p>500 ice cubes for $3.70</p>
-        <button onclick="buy500icecubes()" class="buy-btns">Buy</button>
-        <br><br>
-        <p>Set price per cup:</p>
-        <div class="slidecontainer">
-            <input type="range" min="0.01" step="0.01" max="1" value="0.25" class="slider" id="myRange">
-            <p>$<span id="priceOutput"></span></p>
+    <header>
+        <h1>LEMONADE STAND</h1>
+        <button id="openModal">Guide</button>
+        <div id="modal">
+            <div id="modal-textbox">
+                <h1>Game manual</h1>
+                <h4>Introduction</h4>
+                    <p>
+                        You are about to start school in a weeks'. 
+                        You decided to run a lemonade stand to earn your own pocket money as you do not want to burden your parents.
+                        Your goal is to earn as much money while avoiding from making a loss within the week.
+                        You planned to run the stand every day in the week from 10am till 6pm.
+                    </p>
+                <h4>Weather & Temperature</h4>    
+                    <p>
+                        As the weather temperature becomes hotter, demand for lemonade goes up and customers will pay more for it.
+                        However as the weather temperature gets colder, the demand decreases.
+                    </p>
+                <h4>Number of Ice Cubes</h4>
+                    <p>
+                        You should take into consideration the temperature of the weather when determining the number of ice cubes to pour into each cup.
+                        Unfortunately in this game, you will have no access to the weather forecast. 
+                        Hence, you have to assess your risks before deciding whether to check the option to include ice. 
+                        The journey to the location for your lemonade stand will be long, so there's no turning back once you have made your decision.
+                    </p>
+                <h4>Number of Cups of Lemonade</h4>
+                    <p>
+                        You have to be decisive when choosing how many cups to purchase. Your business for the day will have to close once you run out of lemonade, even if it's before your intended closing time.
+                    </p>
+                <div id="modal-footer">
+                    <button class="modal-buttons" href="#" id="close">Close</button>
+                </div>
+            </div>
         </div>
-        <form>
-            <label for="useCubes">Add 4 ice cubes:</label>
-            <input type="checkbox" id="icecubebox">
-        </form>
-        <p>Time: <span id="time"></span> hours</p>
-        <br>
-        <p>Weather: <span id="temp"></span><span>&#8451</span></p>
-        <br>
-        <p>Day: <span id="day"></span> of 7</p>
-        <br><br>
-        <button onclick="simulation()" id="simulate-btn">Simulate</button>
-        <button>Guide</button>
-    </div>
+        <button id="openBooks">Book recommendations</button>
+        <div id="book">
+            <div id="book-textbox">
+                <article id="book-article"></article>
+                <div id="book-footer">
+                    <button class="modal-buttons" href="#" id="closeBooks">Close</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="left">
+                <h2 style="text-align: center;">Supplier</h2>
+                <table id="cupsupplies">
+                    <thead>
+                        <th colspan="3" style="text-align: center;">CUPS OF LEMONADE: <span id="numberofcups">0</span></th>
+                        <tr>
+                            <th>Bulk Quantity</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>25</td>
+                            <td>$1.20</td>
+                            <td><button onclick="buy25cups()" class="buy-btns">Checkout</button></td>
+                        </tr>
+                        <tr>
+                            <td>50</td>
+                            <td>$3.14</td>
+                            <td><button onclick="buy50cups()" class="buy-btns">Checkout</button></td>
+                        </tr>
+                        <tr>
+                            <td>100</td>
+                            <td>$5.23</td>
+                            <td><button onclick="buy100cups()" class="buy-btns">Checkout</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br><br>
+                <table id="icecubessupplies">
+                    <thead>
+                        <th colspan="3" style="text-align: center;">ICE CUBES: <span id="numberoficecubes">0</span></th>
+                        <tr>
+                            <th>Bulk Quantity</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100</td>
+                            <td>$0.98</td>
+                            <td><button onclick="buy100icecubes()" class="buy-btns">Checkout</button></td>
+                        </tr>
+                        <tr>
+                            <td>250</td>
+                            <td>$2.15</td>
+                            <td><button onclick="buy250icecubes()" class="buy-btns">Checkout</button></td>
+                        </tr>
+                        <tr>
+                            <td>500</td>
+                            <td>$3.70</td>
+                            <td><button onclick="buy500icecubes()" class="buy-btns">Checkout</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mid">
+                <div id="displaycash">
+                    <p>Cash: $<span id="cash">10</span></p>
+                </div>
+                <div id="displaygamestat">
+                    <p>Time: <span id="time"></span> hours</p>
+                    <p>Weather: <span id="temp"></span><span>&#8451</span></p>
+                    <p>Day: <span id="day"></span> of 7</p>
+                </div>
+                <div id="price">
+                    <p>Set price per cup: $<span id="priceOutput"></span></p>
+                    <div class="slidecontainer">
+                        <input type="range" min="0.01" step="0.01" max="1" value="0.25" class="slider" id="myRange">
+                    </div>
+                </div>
+                <div id="pourice">
+                    <form>
+                        <label for="useCubes">Add 4 ice cubes:</label>
+                        <input type="checkbox" id="icecubebox">
+                    </form>
+                </div>
+                <div id="simulate">
+                    <button onclick="simulation()" id="simulate-btn">Simulate</button>
+                </div>
+            </div>
+            <div class="right">
+                <h2 style="text-align: center;">Financial Report</h2>
+                <div class="slider">
+                        <table id="expenditures">
+                            <thead>
+                                <th colspan="3" style="text-align: center;">EXPENDITURES</th>
+                                <tr>
+                                    <th></th>
+                                    <th>Quantity</th>
+                                    <th>Costs</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>CUPS</th>
+                                    <td id="totalcupsbought">0</td>
+                                    <td>$<span id="cupsexpenses">0</span></td>
+                                </tr>
+                                <tr>
+                                    <th>ICE CUBES</th>
+                                    <td id="totalicecubesbought">0</td>
+                                    <td>$<span id="icecubesexpenses">0</span></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" style="text-align: center">TOTAL EXPENSES</th>
+                                    <td>$<span id="totalexpenses">0</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br><br><br>
+                        <table id="revenue">
+                            <thead>
+                                <th colspan="3" style="text-align: center;">NET INCOME</th>
+                                <tr>
+                                    <th></th>
+                                    <th>Quantity</th>
+                                    <th>Income</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th style="text-align: left">SALES</th>
+                                    <td><span id="totalcupssold">0</span> cups</td>
+                                    <td>$<span id="totalsales">0</span></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" style="text-align: left">EXPENSES</th>
+                                    <td>- $<span id="totalexpenses2">0</span></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" style="text-align: left">PROFIT</th>
+                                    <td>$<span id="profits">0</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </main>
 </body>
 </html>
