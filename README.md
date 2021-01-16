@@ -167,6 +167,8 @@ function includeIceCubes() {
 ## Technical Challenges
 - CORS Errors when fetching API data
 - Prevent data loss after refreshing or going to another page
+## Unsolved issues
+- unable to use table element in a carousel
 ## Future improvements
 ### Animations
 - floating dollar signs spawning everytime customers make a purchase
@@ -175,6 +177,11 @@ function includeIceCubes() {
 ### Design
 - lemonade stand
 - background
+### Features 
+- more variables which will affect demand
+- multi HTML pages
+- save high score
+- carousel view for financial report
 ## One new thing I learnt
 _Just start and be confident to learn along the way._
 # [Link to live site](https://numanharith.github.io/lemonadestand/LemonadeStand/home.html)
