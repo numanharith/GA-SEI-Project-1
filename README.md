@@ -164,5 +164,9 @@ function includeIceCubes() {
     } 
 }
 ```
+## Technical Challenges
+- CORS Errors when fetching API data
+- Prevent data loss after refreshing or going to another page
 ## One new thing I learnt
-### Just start.
+Just start and be confident to learn along the way.
+# [Link to live site](https://numanharith.github.io/lemonadestand/LemonadeStand/home.html)
