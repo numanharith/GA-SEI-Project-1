@@ -167,6 +167,14 @@ function includeIceCubes() {
 ## Technical Challenges
 - CORS Errors when fetching API data
 - Prevent data loss after refreshing or going to another page
+## Future improvements
+### Animations
+- floating dollar signs spawning everytime customers make a purchase
+- customer walking to and fro the lemonade stand
+- customer carries the cup of lemonade
+### Design
+- lemonade stand
+- background
 ## One new thing I learnt
 _Just start and be confident to learn along the way._
 # [Link to live site](https://numanharith.github.io/lemonadestand/LemonadeStand/home.html)
