@@ -168,5 +168,5 @@ function includeIceCubes() {
 - CORS Errors when fetching API data
 - Prevent data loss after refreshing or going to another page
 ## One new thing I learnt
-Just start and be confident to learn along the way.
+_Just start and be confident to learn along the way._
 # [Link to live site](https://numanharith.github.io/lemonadestand/LemonadeStand/home.html)
