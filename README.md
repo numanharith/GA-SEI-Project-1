@@ -15,3 +15,36 @@ $.ajax({
     }
 });
 ```
+### jQuery
+```javascript
+$(() => {
+    // Grabbing Guide button
+    const $openBtn = $('#openModal');
+    // Grabbing guide element
+    const $modal = $('#modal');
+    // Grabbing close button
+    const $closeBtn = $('#close');
+    const openModal = () => {
+        $modal.css('display', 'block');
+    }
+    $openBtn.on('click', openModal);
+    
+    const closeModal = () => {
+        $modal.css('display', 'none');
+    }
+    $closeBtn.on('click', closeModal);
+    setTimeout(openModal, 1);
+
+    // View book recommendations
+    const $openBooksBtn = $('#openBooks');
+    const $book = $('#book');
+    const $closeBooksBtn = $('#closeBooks');
+    const openBook = () => {
+        $book.css('display', 'block');
+    }
+    $openBooksBtn.on('click', openBook);
+    const closeBook = () => {
+        $book.css('display', 'none');
+    }
+    $closeBooksBtn.on('click', closeBook);
+});
