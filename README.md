@@ -175,6 +175,7 @@ function includeIceCubes() {
 - customer walking to and fro the lemonade stand
 - customer carries the cup of lemonade
 ### Design
+- use Bootstrap
 - lemonade stand
 - background
 ### Features 
@@ -182,6 +183,10 @@ function includeIceCubes() {
 - multi HTML pages
 - save high score
 - carousel view for financial report
+### Code
+- use coherent and consistent naming conventions for ids, classes, functions and variables
+- refactor and separate into different files
+- more comments
 ## One new thing I learnt
 _Just start and be confident to learn along the way._
 # [Link to live site](https://numanharith.github.io/lemonadestand/LemonadeStand/home.html)
